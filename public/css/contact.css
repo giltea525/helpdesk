@@ -1,0 +1,33 @@
+body {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #000;
+  color: #fff;
+}
+
+.navbar-laravel {
+  background-color: #191970;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.navbar-brand {
+  color: #fff !important;
+}
+
+.nav-link {
+  color: #fff !important;
+}
+
+.py-4 {
+    /*background: repeating-linear-gradient(45deg, #fff, #fff 1vw, #e6e6fa 0, #e6e6fa 2vw);*/
+    background-image: radial-gradient(#e6e6fa 20%, transparent 20%), radial-gradient(#e6e6fa 20%, transparent 20%);
+    background-size: 2.1vw 2.1vw;
+    background-position: 0 0, 1vw 1vw;
+    background-repeat: repeat;
+}
+
+/*.btn-primary {*/
+/*    color: #fff;*/
+/*    background-color: #191970 !important;*/
+/*    border-color: #191970 !important;*/
+/*}*/
