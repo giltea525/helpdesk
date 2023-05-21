@@ -8,7 +8,15 @@
 @section('content')
     <div class="container">
         <h2 class="contact_title">問い合わせ新規入力</h2>
-        <form>
+        <form action="{{ route('contact.create') }}" method="post" enctype="multipart/form-data">
+            
+            @if (count($errors) > 0)
+                <ul>
+                    @foreach($errors->all() as $e)
+                        <li>{{ $e }}</li>
+                    @endforeach
+                </ul>
+            @endif
             <div class="form-group row">
                 <label class="col-md-2">
                     受付日

@@ -17,9 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/contact/create',function(){
-    return view('/contact/create');
-});
+use App\Http\Controllers\ContactController;
+//新規入力画面を表示する
+Route::get('/contact/create',[ContactController::class,'add'])->name('contact.add');
+//テーブルにデータを格納する
+Route::post('/contact/create',[ContactController::class,'create'])->name('contact.create');
 
 Auth::routes();
 
