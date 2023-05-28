@@ -33,4 +33,17 @@ class ContactController extends Controller
 
         return redirect('contact/create');
     }
+    
+    public function index(Request $request)
+    {
+        $contact_division = $request->contact_division;
+        if ($contact_division != '') {
+            // 検索されたら検索結果を取得する
+            $posts = Contact::where('contact_division', $contact_division)->get();
+        } else {
+            // それ以外はすべてのデータを取得する
+            $posts = Contact::all();
+        }
+        return view('contact.index', ['posts' => $posts, 'contact_division' => $contact_division]);
+    }
 }

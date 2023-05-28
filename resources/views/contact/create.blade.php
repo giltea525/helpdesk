@@ -18,13 +18,14 @@
                 </ul>
             @endif
             <div class="form-group row">
-                <label class="col-md-2">
+                <label class="col-md-4">
                     受付日
-                    <input type="date" name="contact_day" value="<?php echo date('Y-m-d'); ?>">
+                    <input type="date" name="contact_day" value="<?php echo date('Y-m-d'); ?>" class="form-control">
                 </label>
-                <label class="col-md-2">
+                <label class="col-md-4">
                     所属
-                    <select name="contact_division">
+                    <select class="form-control" name="contact_division">
+                        <option value="" selected disabled>所属</option>
                         <option value="学生">学生</option>
                         <option value="教員">教員</option>
                         <option value="事務局">事務局</option>
@@ -32,9 +33,10 @@
                 </label>
             </div>
             <div class="form-group row">
-                <label class="col-md-2">
+                <label class="col-md-4">
                     種別
-                    <select name="contact_category">
+                    <select class="form-control" name="contact_category">
+                        <option value="" selected disabled>種別</option>
                         <option value="パソコン">パソコン</option>
                         <option value="iphone">iphone</option>
                         <option value="android">android</option>
@@ -43,7 +45,7 @@
                 </label>
             </div>
             <div class="form-group row">
-                <label class="col-md-2">
+                <label class="col-md-12">
                     問い合わせ内容
                     <div>
                         <textarea class="form-control" name="contact_case" rows="5">{{ old('contact_case') }}</textarea>
@@ -51,7 +53,7 @@
                 </label>
             </div>
             <div class="form-group row">
-                <label class="col-md-2">
+                <label class="col-md-12">
                     対応内容
                     <div>
                         <textarea class="form-control" name="contact_result" rows="5">{{ old('contact_result') }}</textarea>
@@ -59,13 +61,14 @@
                 </label>
             </div>
             <div class="form-group row">
-                <label class="col-md-2">
+                <label class="col-md-10">
                     コメント
                     <textarea class="form-control" name="contact_comment" rows="2">{{ old('contact_comment') }}</textarea>
                 </label>
                 <label class="col-md-2">
                     対応状況
-                    <select name="contact_status">
+                    <select class="form-control" name="contact_status">
+                        <option value="" selected disabled>対応状況</option>
                         <option value="未対応">未対応</option>
                         <option value="対応中">対応中</option>
                         <option value="完了">完了</option>

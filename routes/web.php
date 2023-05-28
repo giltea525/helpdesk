@@ -22,6 +22,8 @@ use App\Http\Controllers\ContactController;
 Route::get('/contact/create',[ContactController::class,'add'])->name('contact.add');
 //テーブルにデータを格納する
 Route::post('/contact/create',[ContactController::class,'create'])->name('contact.create');
+//一覧を表示
+Route::get('contact/index',[ContactController::class,'index'])->name('contact.index');
 
 Auth::routes();
 
