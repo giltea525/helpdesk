@@ -18,12 +18,18 @@ Route::get('/', function () {
 });
 
 use App\Http\Controllers\ContactController;
+Route::group(['middleware' => 'auth'], function () {
 //新規入力画面を表示する
 Route::get('/contact/create',[ContactController::class,'add'])->name('contact.add');
 //テーブルにデータを格納する
 Route::post('/contact/create',[ContactController::class,'create'])->name('contact.create');
 //一覧を表示
 Route::get('contact/index',[ContactController::class,'index'])->name('contact.index');
+//編集画面
+Route::get('contact/edit', [ContactController::class,'edit'])->name('contact.edit');
+//更新を保存する
+Route::post('contact/edit', [ContactController::class,'update'])->name('contact.update');
+});
 
 Auth::routes();
 

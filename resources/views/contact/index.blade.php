@@ -85,7 +85,7 @@
                                     <td>{{ $contact->contact_status }}</td>
                                     <td>
                                         <div>
-                                            <a href="#">編集</a>
+                                            <a href="{{ route('contact.edit' , ['id' => $contact->id]) }}">編集</a>
                                         </div>
                                         <div>
                                             <a href="#">削除</a>

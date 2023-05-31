@@ -34,6 +34,7 @@ class ContactController extends Controller
         return redirect('contact/create');
     }
     
+    //設定途中：一覧画面での検索
     public function index(Request $request)
     {
         $contact_division = $request->contact_division;
@@ -46,4 +47,33 @@ class ContactController extends Controller
         }
         return view('contact.index', ['posts' => $posts, 'contact_division' => $contact_division]);
     }
+    
+    //編集画面
+    public function edit(Request $request)
+    {
+        // Contact Modelからデータを取得する
+        $contact = Contact::find($request->id);
+        if (empty($contact)) {
+            abort(404);
+        }
+        return view('contact.edit', ['contact_form' => $contact]);
+    }
+
+    //編集画面から送信されたフォームデータを処理する
+    public function update(Request $request)
+    {
+        // Validationをかける
+        $this->validate($request, Contact::$rules);
+        // News Modelからデータを取得する
+        $contact = Contact::find($request->id);
+        // 送信されてきたフォームデータを格納する
+        $contact_form = $request->all();
+        unset($contact_form['_token']);
+
+        // 該当するデータを上書きして保存する
+        $contact->fill($contact_form)->save();
+
+        return redirect('contact/index');
+    }
+    
 }
