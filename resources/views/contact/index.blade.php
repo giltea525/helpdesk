@@ -15,32 +15,32 @@
                     <select class="form-control" name="contact_division">
                         <option value="" {{--selected disabled--}}>所属</option>
                         <option value="学生" @if($contact_division=="学生") {{"selected"}}@endif>学生</option>
-                        <option value="教員">教員</option>
-                        <option value="事務局">事務局</option>
+                        <option value="教員" @if($contact_division=="教員") {{"selected"}}@endif>教員</option>
+                        <option value="事務局" @if($contact_division=="事務局") {{"selected"}}@endif>事務局</option>
                     </select>
                 </label>
                 <label class="col-md-2">
                     種別
                     <select class="form-control" name="contact_category">
                         <option value="" {{--selected disabled--}}>種別</option>
-                        <option value="パソコン">パソコン</option>
-                        <option value="iphone">iphone</option>
-                        <option value="android">android</option>
-                        <option value="プリンター">プリンター</option>
+                        <option value="パソコン" @if($contact_division=="パソコン") {{"selected"}}@endif>パソコン</option>
+                        <option value="iphone" @if($contact_division=="iphone") {{"selected"}}@endif>iphone</option>
+                        <option value="android" @if($contact_division=="android") {{"selected"}}@endif>android</option>
+                        <option value="プリンター" @if($contact_division=="プリンター") {{"selected"}}@endif>プリンター</option>
                     </select>
                 </label>
                 <label class="col-md-2">
                     対応状況
                     <select class="form-control" name="contact_status">
                         <option value="" {{--selected disabled--}}>対応状況</option>
-                        <option value="未対応">未対応</option>
-                        <option value="対応中">対応中</option>
-                        <option value="完了">完了</option>
+                        <option value="未対応" @if($contact_division=="未対応") {{"selected"}}@endif>未対応</option>
+                        <option value="対応中" @if($contact_division=="対応中") {{"selected"}}@endif>対応中</option>
+                        <option value="完了" @if($contact_division=="完了") {{"selected"}}@endif>完了</option>
                     </select>
                 </label>
                 <label class="col-md-5">
                     フリーワード検索
-                    <input type="text" class="form-control" name="freeword" value="{{ $contact_division }}" placeholder="フリーワード">
+                    <input type="text" class="form-control" name="freeword" value="{{ $freeword }}" placeholder="フリーワード">
                 </label>
                 <div class="col-md-1">
                     @csrf

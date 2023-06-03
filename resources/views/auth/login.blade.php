@@ -68,6 +68,11 @@
                 </div>
             </div>
         </div>
+        <div class="row mb-0 mt-3">
+            <div class="text-center">
+                <a class="btn btn-link" href="{{ route('register') }}">初回登録はこちら</a>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

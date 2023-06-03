@@ -34,18 +34,28 @@ class ContactController extends Controller
         return redirect('contact/create');
     }
     
-    //設定途中：一覧画面での検索
+    //一覧画面での検索　$requestはformから送信された内容が配列で入っている
     public function index(Request $request)
     {
-        $contact_division = $request->contact_division;
-        if ($contact_division != '') {
-            // 検索されたら検索結果を取得する
-            $posts = Contact::where('contact_division', $contact_division)->get();
-        } else {
-            // それ以外はすべてのデータを取得する
-            $posts = Contact::all();
-        }
-        return view('contact.index', ['posts' => $posts, 'contact_division' => $contact_division]);
+        $contact_division = $request->contact_division;//$requestのcontact_divisionを$contact_divisionに代入する
+        $contact_category = $request->contact_category;
+        $contact_status = $request->contact_status;
+        $freeword = $request->freeword;
+        $posts = Contact::orderBy('id', 'ASC')
+                ->when(!is_null($contact_division), function($q) use ($contact_division){
+            	$q->where('contact_division', $contact_division);//(テーブルのカラム名，フォームで選んだ変数)
+      		    })
+               	->when(!is_null($contact_category), function($q) use ($contact_category){
+                $q->where('contact_category',$contact_category);
+                })
+                ->when(!is_null($contact_status), function($q) use ($contact_status){
+                $q->where('contact_status',$contact_status);
+                })
+			    ->when(!is_null($freeword), function($q) use ($freeword){
+                $q->where('contact_case','LIKE',"%$freeword%")->orwhere('contact_result','LIKE',"%$freeword%");
+                })
+                ->get();
+        return view('contact.index', ['posts' => $posts, 'contact_division' => $contact_division,'contact_category' => $contact_category,'contact_status' => $contact_status,'freeword' => $freeword]);
     }
     
     //編集画面
