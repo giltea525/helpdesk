@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;//日付を扱う
+
 //追記：Contact Modelが扱えるようになる
 use App\Models\Contact;
 
@@ -41,7 +43,16 @@ class ContactController extends Controller
         $contact_category = $request->contact_category;
         $contact_status = $request->contact_status;
         $freeword = $request->freeword;
+        $month = $request->month;
+            if(empty($month)){
+                $date = Carbon::now();
+            }else{
+                // $date = Carbon::create(2023,5,1);
+                $date = Carbon::create(substr($month,0,4),substr($month,4,2),1);
+            }
         $posts = Contact::orderBy('id', 'ASC')
+                ->whereMonth('contact_day',$date->month)
+                ->whereYear('contact_day',$date->year)
                 ->when(!is_null($contact_division), function($q) use ($contact_division){
             	$q->where('contact_division', $contact_division);//(テーブルのカラム名，フォームで選んだ変数)
       		    })
@@ -55,7 +66,7 @@ class ContactController extends Controller
                 $q->where('contact_case','LIKE',"%$freeword%")->orwhere('contact_result','LIKE',"%$freeword%");
                 })
                 ->get();
-        return view('contact.index', ['posts' => $posts, 'contact_division' => $contact_division,'contact_category' => $contact_category,'contact_status' => $contact_status,'freeword' => $freeword]);
+        return view('contact.index', ['posts' => $posts, 'contact_division' => $contact_division,'contact_category' => $contact_category,'contact_status' => $contact_status,'freeword' => $freeword,'date'=> $date]);
     }
     
     //編集画面
@@ -74,7 +85,7 @@ class ContactController extends Controller
     {
         // Validationをかける
         $this->validate($request, Contact::$rules);
-        // News Modelからデータを取得する
+        // Contact Modelからデータを取得する
         $contact = Contact::find($request->id);
         // 送信されてきたフォームデータを格納する
         $contact_form = $request->all();
@@ -84,6 +95,18 @@ class ContactController extends Controller
         $contact->fill($contact_form)->save();
 
         return redirect('contact/index');
+    }
+    
+    //データの削除
+    public function delete(Request $request)
+    {
+        // 該当するContact Modelを取得
+        $contact = Contact::find($request->id);
+
+        // 削除する
+        $contact->delete();
+
+        return redirect('contact/index/');
     }
     
 }

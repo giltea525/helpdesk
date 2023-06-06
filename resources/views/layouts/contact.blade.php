@@ -32,7 +32,8 @@
             {{-- 画面上部に表示するナビゲーションバー --}}
             <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <!--Helpdeskボタンを押すとログイン画面に戻るためhrefのリンクを外す-->
+                    <a class="navbar-brand" href="#{{-- url('/') --}}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +44,9 @@
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="/contact/index">Home</a>
+                                <!--<a class="nav-link" href="/contact/index">Home</a>-->
+                                <!--web.phpで31行目のcontact/indexを削除したためhomeに変更-->
+                                <a class="nav-link" href="/home">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/contact/create">新規入力</a>

@@ -23,19 +23,19 @@
                     種別
                     <select class="form-control" name="contact_category">
                         <option value="" {{--selected disabled--}}>種別</option>
-                        <option value="パソコン" @if($contact_division=="パソコン") {{"selected"}}@endif>パソコン</option>
-                        <option value="iphone" @if($contact_division=="iphone") {{"selected"}}@endif>iphone</option>
-                        <option value="android" @if($contact_division=="android") {{"selected"}}@endif>android</option>
-                        <option value="プリンター" @if($contact_division=="プリンター") {{"selected"}}@endif>プリンター</option>
+                        <option value="パソコン" @if($contact_category=="パソコン") {{"selected"}}@endif>パソコン</option>
+                        <option value="iphone" @if($contact_category=="iphone") {{"selected"}}@endif>iphone</option>
+                        <option value="android" @if($contact_category=="android") {{"selected"}}@endif>android</option>
+                        <option value="プリンター" @if($contact_category=="プリンター") {{"selected"}}@endif>プリンター</option>
                     </select>
                 </label>
                 <label class="col-md-2">
                     対応状況
                     <select class="form-control" name="contact_status">
                         <option value="" {{--selected disabled--}}>対応状況</option>
-                        <option value="未対応" @if($contact_division=="未対応") {{"selected"}}@endif>未対応</option>
-                        <option value="対応中" @if($contact_division=="対応中") {{"selected"}}@endif>対応中</option>
-                        <option value="完了" @if($contact_division=="完了") {{"selected"}}@endif>完了</option>
+                        <option value="未対応" @if($contact_status=="未対応") {{"selected"}}@endif>未対応</option>
+                        <option value="対応中" @if($contact_status=="対応中") {{"selected"}}@endif>対応中</option>
+                        <option value="完了" @if($contact_status=="完了") {{"selected"}}@endif>完了</option>
                     </select>
                 </label>
                 <label class="col-md-5">
@@ -44,15 +44,34 @@
                 </label>
                 <div class="col-md-1">
                     @csrf
-                    <input type="submit" class="btn btn-primary" value="検索">
+                    <input type="hidden" name="month" value="{{$date->year.sprintf('%02d',$date->month)}}">
+                    <input type="submit" class="btn btn-primary mt-4" value="検索">
                 </div>
             </div>
         </form>
-        
+        @php
+            if($date->month ==1){
+                $lastmonth = $date->year-1;
+                $lastmonth .= 12;
+            }else{
+                $lastmonth = $date->year;
+                $lastmonth .= sprintf('%02d',$date->month-1);
+            }
+            if($date->month ==12){
+                $nextmonth = $date->year+1;
+                $nextmonth .= sprintf('%02d',1);
+            }else{
+                $nextmonth = $date->year;
+                $nextmonth .= sprintf('%02d',$date->month+1);
+            }
+        @endphp
         <div>
-            <a href="#"><<前月へ</a>
-            2023年4月
-            <a href="#">翌月へ>></a>
+            <a href="{{ route('contact.index',['month'=>$lastmonth]); }}"><<前月へ</a>
+            {{$date->year;}}年{{ sprintf('%02d',$date->month);}}月
+            <a href="{{ route('contact.index',['month'=>$nextmonth]); }}">翌月へ>></a>
+            <!--<a href="#"><<前月へ</a>-->
+            <!--2023年4月-->
+            <!--<a href="#">翌月へ>></a>-->
         </div>
         
         <div class="row">
@@ -88,7 +107,7 @@
                                             <a href="{{ route('contact.edit' , ['id' => $contact->id]) }}">編集</a>
                                         </div>
                                         <div>
-                                            <a href="#">削除</a>
+                                            <a href="{{ route('contact.delete', ['id' => $contact->id]) }}">削除</a>
                                         </div>
                                     </td>
                                 </tr>

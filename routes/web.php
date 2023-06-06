@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');//Laravel画面なしでログイン画面表示する('/'はデフォルトルート)
 });
 
 use App\Http\Controllers\ContactController;
@@ -24,13 +28,16 @@ Route::get('/contact/create',[ContactController::class,'add'])->name('contact.ad
 //テーブルにデータを格納する
 Route::post('/contact/create',[ContactController::class,'create'])->name('contact.create');
 //一覧を表示
-Route::get('contact/index',[ContactController::class,'index'])->name('contact.index');
+// Route::get('contact/index',[ContactController::class,'index'])->name('contact.index');
+Route::get('/home',[ContactController::class,'index'])->name('contact.index');//一覧画面のURLが/homeになる＝ナビゲーションバーのHomeボタンのリンク先
 //編集画面
 Route::get('contact/edit', [ContactController::class,'edit'])->name('contact.edit');
 //更新を保存する
 Route::post('contact/edit', [ContactController::class,'update'])->name('contact.update');
+//削除する
+Route::get('contact/delete', [ContactController::class,'delete'])->name('contact.delete');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Home画面を表示させないので省略する
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
