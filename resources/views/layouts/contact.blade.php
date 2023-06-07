@@ -33,7 +33,7 @@
             <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
                 <div class="container">
                     <!--Helpdeskボタンを押すとログイン画面に戻るためhrefのリンクを外す-->
-                    <a class="navbar-brand" href="#{{-- url('/') --}}">
+                    <a class="navbar-brand mb-0 h1" href="#{{-- url('/') --}}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
